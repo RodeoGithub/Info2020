@@ -1,4 +1,5 @@
-#version 1.01
+#version 1.02 
+
 from tkinter import *
 
 #region Config main window
@@ -23,17 +24,23 @@ secondNumTxt.set('')
 #region Calculator logic
 
 def sum():
-    result.set(str(int(firstNum.get()) + int(secondNum.get())))
+    fn=float(firstNum.get())
+    sn=float(secondNum.get())
+    result.set(str(round(fn + sn,2)))
     calc.update()
 def substraction():
-    result.set(str(int(firstNum.get()) - int(secondNum.get())))
+    fn=float(firstNum.get())
+    sn=float(secondNum.get())
+    result.set(str(round(fn - sn,2)))
     calc.update()
 def product():
-    result.set(str(int(firstNum.get()) * int(secondNum.get())))
+    fn=float(firstNum.get())
+    sn=float(secondNum.get())
+    result.set(str(round(fn * sn,2)))
     calc.update()
 def division():
-    fn=int(firstNum.get())
-    sn=int(secondNum.get())
+    fn=float(firstNum.get())
+    sn=float(secondNum.get())
     if(sn==0):
         result.set("Impossible!")
     else:
