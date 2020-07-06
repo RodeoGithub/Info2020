@@ -1,5 +1,5 @@
+#version 1.01
 from tkinter import *
-
 
 #region Config main window
 
@@ -10,9 +10,18 @@ calc.iconbitmap(".\Calculadora_Tk\Calculator.ico")
 
 #endregion
 
-#region Calculator logic
+#region Declaring Variables
+
 result = StringVar()
 result.set('')
+firstNumTxt = StringVar()
+firstNumTxt.set('')
+secondNumTxt = StringVar()
+secondNumTxt.set('')
+#endregion
+
+#region Calculator logic
+
 def sum():
     result.set(str(int(firstNum.get()) + int(secondNum.get())))
     calc.update()
@@ -31,8 +40,12 @@ def division():
         r=round(fn/sn,2)
         result.set(str(r))
     calc.update()
-
-
+def clear():
+    result.set('')
+    firstNumTxt.set('')
+    secondNumTxt.set('')
+    firstNum.focus()
+    calc.update()
 #endregion
 
 #region User Interface
@@ -65,12 +78,20 @@ resultLabel = Label(calc,
                     )
 resultLabel.grid(row=2, column=0)
 
-firstNum = Entry(calc,borderwidth=3,width=15,font=16,)
+firstNum = Entry(calc,borderwidth=3,width=15,font=16,textvariable=firstNumTxt)
 firstNum.focus()
 firstNum.grid(row=0,column=1,)
 
-secondNum = Entry(calc,borderwidth=3,width=15,font=16,)
+secondNum = Entry(calc,borderwidth=3,width=15,font=16,textvariable=secondNumTxt)
 secondNum.grid(row=1,column=1,)
+
+clearButton = Button(calc,
+                    text="C",
+                    padx=8,
+                    pady=5,
+                    font=12,
+                    command=clear)
+clearButton.grid(row=0,column=3,pady=5)
 
 plusButton = Button(calc, 
                     text = "+",
@@ -78,7 +99,7 @@ plusButton = Button(calc,
                     pady=5,
                     font=15,
                     command=sum)
-plusButton.grid(row=0,column=2, padx=10,pady=10)
+plusButton.grid(row=1,column=2, padx=10)
 
 multiplicationButton=Button(calc,
                             text="x",
@@ -86,23 +107,24 @@ multiplicationButton=Button(calc,
                             pady=5,
                             font=12,
                             command=product)
-multiplicationButton.grid(row=0,column=3)
+multiplicationButton.grid(row=1,column=3,pady=5)
 
 minusButton = Button(calc,
                     text="-",
-                    padx=10,
+                    padx=12,
                     pady=5,
                     font=15,
                     command=substraction)
-minusButton.grid(row=1,column=2)
+minusButton.grid(row=2,column=2)
 
 divisionButton = Button(calc, 
                         text="/",
-                        padx=10,
+                        padx=12,
                         pady=5,
                         font=15,
                         command=division)
-divisionButton.grid(row=1,column=3)
+divisionButton.grid(row=2,column=3,pady=5)
+
 
 resultOfOperation = Label(calc,bg="white",borderwidth=3,
                     relief="sunken",textvariable=result,
